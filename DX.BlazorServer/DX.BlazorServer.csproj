@@ -13,10 +13,15 @@
 	<Target Name="PreBuild" BeforeTargets="PreBuildEvent">
 		<ItemGroup>
 			<CssAssets Include="$(SolutionDir)DX.BlazorWASM\Client\wwwroot\css\**\*" />
+			<!--<ImgAssets Include="$(SolutionDir)DX.BlazorWASM\Client\wwwroot\images\**\*" />-->
+			<!-- etc -->
 		</ItemGroup>
 
 		<Copy SourceFiles="@(CssAssets)"
 			  DestinationFolder="$(ProjectDir)wwwroot\css\%(RecursiveDir)"
 			  SkipUnchangedFiles="true" />
+		<!--<Copy SourceFiles="@(ImgAssets)"
+			  DestinationFolder="$(ProjectDir)wwwroot\images\%(RecursiveDir)"
+			  SkipUnchangedFiles="true" />-->
 	</Target>
 </Project>
