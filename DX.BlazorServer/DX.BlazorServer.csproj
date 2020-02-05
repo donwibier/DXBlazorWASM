@@ -1,17 +1,22 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>netcoreapp3.0</TargetFramework>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <Content Include="..\DX.BlazorWASM\Client\wwwroot\css\**\*.*" Link="wwwroot\css\%(RecursiveDir)%(FileName)%(Extension)" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\DX.Blazor.Data\DX.Blazor.Data.csproj" />
+		<ProjectReference Include="..\DX.BlazorWASM\Client\DX.BlazorWASM.Client.csproj" />
+		<ProjectReference Include="..\DX.BlazorWASM\Shared\DX.BlazorWASM.Shared.csproj" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\DX.Blazor.Data\DX.Blazor.Data.csproj" />
-    <ProjectReference Include="..\DX.BlazorWASM\Client\DX.BlazorWASM.Client.csproj" />
-    <ProjectReference Include="..\DX.BlazorWASM\Shared\DX.BlazorWASM.Shared.csproj" />
-  </ItemGroup>
+	<Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+		<ItemGroup>
+			<CssAssets Include="$(SolutionDir)DX.BlazorWASM\Client\wwwroot\css\**\*" />
+		</ItemGroup>
 
+		<Copy SourceFiles="@(CssAssets)"
+			  DestinationFolder="$(ProjectDir)wwwroot\css\%(RecursiveDir)"
+			  SkipUnchangedFiles="true" />
+	</Target>
 </Project>
